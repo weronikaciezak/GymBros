@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,17 +21,10 @@ import com.example.gymbros.ui.theme.GymBrosTheme
 
 @Composable
 fun NavigationBar(context: Context, navController: NavController) {
-    //NavHost(navController, startDestination = "") {
-    //    composable("profile") { Profile(navController, "username") }
-    //}
-//    val firebaseAuth = FirebaseAuth.getInstance()
-//    val user = firebaseAuth.currentUser
-//    val userId = user?.uid
-//    lateinit var viewModel: CloudViewModel
-//    val username = userId?.let { viewModel.getUsername(it) }
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        modifier = Modifier.fillMaxWidth().height(56.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Button(onClick = {
             navController.navigate("home")

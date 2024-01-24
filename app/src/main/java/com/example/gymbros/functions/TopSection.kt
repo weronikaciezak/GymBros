@@ -24,26 +24,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymbros.viewModels.SearchViewModel
+import com.example.gymbros.archive.SearchViewModel
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun TopSection() {
+fun TopSection(username: String) {
     //lateinit var viewModel: CloudViewModel
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "Hello, username!",
-            fontSize = 19.sp,
-            //fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Column {
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Hello, $username!",
+                fontSize = 19.sp,
+                //fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
 //            when (val result = viewModel.response.value) {
 //                is DataState.Success -> {
 //                    val username = result.data
@@ -79,19 +79,6 @@ fun TopSection() {
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
-            //SearchBar(SearchViewModel())
         }
     }
 }
-/*
-@Composable
-fun SearchBar(viewModel: SearchViewModel) {
-    val searchText by viewModel.searchText.collectAsState()
-
-    TextField(
-        value = searchText,
-        onValueChange = viewModel::onSearchTextChange,
-        label = { Text("Search for users") },
-        modifier = Modifier.fillMaxWidth()
-    )
-}*/

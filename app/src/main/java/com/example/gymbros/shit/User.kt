@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.shit
 
 data class User(
     //var Image: String? = null,

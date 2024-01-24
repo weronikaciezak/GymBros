@@ -1,4 +1,4 @@
-package com.example.gymbros.viewModels
+package com.example.gymbros.archive
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

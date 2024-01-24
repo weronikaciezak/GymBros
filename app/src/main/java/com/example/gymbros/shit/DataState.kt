@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.shit
 
 sealed class DataState {
     class Success(val data: MutableList<User>) : DataState()

@@ -1,7 +1,5 @@
 package com.example.gymbros
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,13 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.firestore
 
 @Composable
 fun Profile(navController: NavController, username: String) {
-    var username by remember { mutableStateOf("") }
+    var input by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,12 +40,11 @@ fun Profile(navController: NavController, username: String) {
         Row {
             TextField(
                 value = username,
-                onValueChange = { username = it },
+                onValueChange = { input = it },
                 label = { Text("new username") })
             Button(onClick = {  }) {
                 Text(text = "Change username")
             }
         }
-
     }
 }

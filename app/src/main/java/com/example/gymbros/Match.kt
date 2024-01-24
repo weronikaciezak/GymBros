@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.gymbros.shit.DataState
+import com.example.gymbros.shit.User
 import com.example.gymbros.ui.theme.Mango
 import com.example.gymbros.viewModels.CloudViewModel
 
