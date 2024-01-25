@@ -1,5 +1,6 @@
 package com.example.gymbros
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,16 +17,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.gymbros.viewModels.AuthViewModel
-import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
-fun LoginScreen(navController: NavController, authViewModel: AuthViewModel, databaseViewModel: DatabaseViewModel) {
+fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val i = Intent(context, UserActivity::class.java)
 
     Column(
         modifier = Modifier
@@ -37,7 +40,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel, data
         TextField(value = email, onValueChange = { email = it; text = "" }, label = { Text("Email") })
         TextField(value = password, onValueChange = { password = it; text = "" }, label = { Text("Password") })
         Text(text, color = MaterialTheme.colorScheme.error)
-        Button(onClick = { authViewModel.signInWithEmailAndPassword(email, password) }) {
+        Button(onClick = {
+            authViewModel.signInWithEmailAndPassword(email, password)
+        }) {
             Text("Login")
         }
         //Text(text = "Nie masz jeszcze konta?", color = Mango)
@@ -47,11 +52,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel, data
         LaunchedEffect(authViewModel.authStatus) {
             authViewModel.authStatus.observeForever { status ->
                 if (status == true) {
-                    databaseViewModel.getUsername()
-                    //val username = mutableStateOf(databaseViewModel.currentUsername).value
-                    navController.navigate("home")
+                    context.startActivity(i)
                 } else {
-                    text = "błędne dane logowania"
+                    text = "nuh uh"
                 }
             }
         }
@@ -63,6 +66,8 @@ fun SignUpScreen(navController: NavController, authViewModel: AuthViewModel) {
     var password by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val i = Intent(context, UserActivity::class.java)
 
     Column(
         modifier = Modifier
@@ -74,14 +79,16 @@ fun SignUpScreen(navController: NavController, authViewModel: AuthViewModel) {
         TextField(value = email, onValueChange = { email = it; text = "" }, label = { Text("Email") })
         TextField(value = password, onValueChange = { password = it }, label = { Text("Password") })
         TextField(value = username, onValueChange = { username = it }, label = { Text("Username") })
-        Button(onClick = { authViewModel.signUpWithEmailAndPassword(email, password, username, navController) }) {
+        Button(onClick = {
+            authViewModel.signUpWithEmailAndPassword(email, password, username, navController)
+        }) {
             Text("Sign Up")
         }
         Text(text, color = MaterialTheme.colorScheme.error)
         LaunchedEffect(authViewModel.authStatus) {
             authViewModel.authStatus.observeForever { status ->
                 if (status == true) {
-                    navController.navigate("home")
+                    context.startActivity(i)
                 } else {
                     text = "nuh uh"
                 }

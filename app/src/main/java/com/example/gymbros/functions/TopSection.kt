@@ -16,33 +16,31 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymbros.viewModels.DatabaseViewModel
+import com.example.gymbros.ui.theme.Mango
 
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun TopSection(databaseViewModel: DatabaseViewModel) {
-    val username = mutableStateOf(databaseViewModel.currentUsername).value
+fun TopSection(username: String) {
     Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(19.dp),
+                .padding(20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Hello, @$username",
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 //fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+                color = Mango
             )
             Box(
                 modifier = Modifier
@@ -64,5 +62,5 @@ fun TopSection(databaseViewModel: DatabaseViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun TopSectionPreview() {
-    TopSection(DatabaseViewModel())
+    TopSection("sraka")
 }
