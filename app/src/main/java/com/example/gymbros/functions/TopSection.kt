@@ -1,5 +1,6 @@
 package com.example.gymbros.functions
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,58 +15,35 @@ import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymbros.archive.SearchViewModel
+import com.example.gymbros.viewModels.DatabaseViewModel
 
-//@Preview(showBackground = true)
+
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun TopSection(username: String) {
-    //lateinit var viewModel: CloudViewModel
+fun TopSection(databaseViewModel: DatabaseViewModel) {
+    val username = mutableStateOf(databaseViewModel.currentUsername).value
     Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(19.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hello, $username!",
-                fontSize = 19.sp,
+                text = "Hello, @$username",
+                fontSize = 25.sp,
                 //fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
-//            when (val result = viewModel.response.value) {
-//                is DataState.Success -> {
-//                    val username = result.data
-//                    Text(
-//                        text = "Hello, $username!",
-//                        fontSize = 19.sp,
-//                        //fontWeight = FontWeight.Bold,
-//                        color = MaterialTheme.colorScheme.primary
-//                    )
-//                }
-//
-//                else -> {
-//                    Text(
-//                        text = "Hello, username!",
-//                        fontSize = 19.sp,
-//                        //fontWeight = FontWeight.Bold,
-//                        color = MaterialTheme.colorScheme.primary
-//                    )
-//                }
-//
-//            }
-
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(15.dp))
@@ -81,4 +59,10 @@ fun TopSection(username: String) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TopSectionPreview() {
+    TopSection(DatabaseViewModel())
 }

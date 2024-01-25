@@ -18,9 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.gymbros.ui.theme.GymBrosTheme
+import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
-fun NavigationBar(context: Context, navController: NavController) {
+fun NavigationBar(context: Context, navController: NavController, databaseViewModel: DatabaseViewModel) {
     Row(
         modifier = Modifier.fillMaxWidth().height(56.dp),
         horizontalArrangement = Arrangement.Center,
@@ -33,6 +34,7 @@ fun NavigationBar(context: Context, navController: NavController) {
         Spacer(modifier = Modifier.width(16.dp))
 
         Button(onClick = {
+            databaseViewModel.fetchNextUser()
             navController.navigate("match")
         }) { Text(text = "Match") }
 
@@ -48,6 +50,6 @@ fun NavigationBar(context: Context, navController: NavController) {
 @Composable
 fun GreetingPreview() {
     GymBrosTheme {
-        NavigationBar(context = LocalContext.current, rememberNavController())
+        NavigationBar(context = LocalContext.current, rememberNavController(), DatabaseViewModel())
     }
 }

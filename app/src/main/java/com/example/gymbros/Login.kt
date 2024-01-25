@@ -19,9 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.gymbros.viewModels.AuthViewModel
+import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
-fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
+fun LoginScreen(navController: NavController, authViewModel: AuthViewModel, databaseViewModel: DatabaseViewModel) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
@@ -46,6 +47,8 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
         LaunchedEffect(authViewModel.authStatus) {
             authViewModel.authStatus.observeForever { status ->
                 if (status == true) {
+                    databaseViewModel.getUsername()
+                    //val username = mutableStateOf(databaseViewModel.currentUsername).value
                     navController.navigate("home")
                 } else {
                     text = "błędne dane logowania"

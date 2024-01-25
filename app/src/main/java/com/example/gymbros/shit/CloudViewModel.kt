@@ -1,12 +1,10 @@
-package com.example.gymbros.viewModels
+package com.example.gymbros.shit
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.gymbros.shit.DataState
-import com.example.gymbros.shit.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
