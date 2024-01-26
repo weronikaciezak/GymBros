@@ -14,7 +14,6 @@ class UserActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            val databaseViewModel = DatabaseViewModel()
             NavHost(navController, startDestination = "home") {
                 composable("home") { HomePage(navController, databaseViewModel) }
                 composable("profile") { Profile(navController, databaseViewModel) }

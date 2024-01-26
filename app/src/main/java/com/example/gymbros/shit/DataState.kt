@@ -1,5 +1,7 @@
 package com.example.gymbros.shit
 
+import com.example.gymbros.User
+
 sealed class DataState {
     class Success(val data: MutableList<User>) : DataState()
     //class Succes(val data: String) : DataState()

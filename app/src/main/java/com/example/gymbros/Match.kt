@@ -36,7 +36,7 @@ fun Match(viewModel: DatabaseViewModel) {
         Spacer(modifier = Modifier.padding(16.dp))
         Row {
             Button(onClick = {
-                viewModel.addFriend(viewModel.userData.value)
+                //viewModel.sendFriendRequest()
                 viewModel.fetchNextUser()
             }, modifier = Modifier
                 .clip(RoundedCornerShape(15.dp))
