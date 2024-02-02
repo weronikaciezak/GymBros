@@ -22,12 +22,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.gymbros.R
+import com.example.gymbros.User
 
 
 @Composable
-fun ShowLazyList(users: MutableList<String>) {
-    //val user = databaseViewModel.friendsNames.toList()
-    //val user = listOf("jola", "ty", "c", "z")
+fun ShowLazyList(users: MutableList<User>) {
     LazyRow{
         items(users) { users ->
             CardItem(users)
@@ -36,7 +35,7 @@ fun ShowLazyList(users: MutableList<String>) {
 }
 
 @Composable
-fun CardItem(user: String) {
+fun CardItem(user: User) {
     Column (
         modifier = Modifier.padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -59,9 +58,11 @@ fun CardItem(user: String) {
                 )
             }
         }
-        Text(
-            text = user,
-            color = Color.Black
-        )
+        user.username?.let {
+            Text(
+                text = it,
+                color = Color.Black
+            )
+        }
     }
 }

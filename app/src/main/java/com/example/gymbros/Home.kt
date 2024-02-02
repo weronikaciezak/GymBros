@@ -26,8 +26,6 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel) {
     databaseViewModel.getUsername() //wtedy dziala
     databaseViewModel.fetchDataFromFirebase()
-    val username = databaseViewModel.currentUsername.value
-    val users = databaseViewModel.allUsernames
     GymBrosTheme {
         Scaffold(
             bottomBar = {
@@ -39,6 +37,8 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     .fillMaxSize()
                     .padding(padding)
             ) {
+                val username = databaseViewModel.currentUsername.value
+                val users = databaseViewModel.list
                 TopSection(username)
                 Text(text = "Welcome Back!",
                     fontSize = 30.sp,
