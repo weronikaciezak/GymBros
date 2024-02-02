@@ -17,7 +17,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.gymbros.functions.ChallengeBox
 import com.example.gymbros.functions.Chart
 import com.example.gymbros.functions.NavigationBar
-import com.example.gymbros.functions.ShowLazyList
 import com.example.gymbros.functions.TopSection
 import com.example.gymbros.ui.theme.GymBrosTheme
 import com.example.gymbros.viewModels.DatabaseViewModel
@@ -38,14 +37,14 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     .padding(padding)
             ) {
                 val username = databaseViewModel.currentUsername.value
-                val users = databaseViewModel.list
+                val users = databaseViewModel.listOfFriends
                 TopSection(username)
                 Text(text = "Welcome Back!",
                     fontSize = 30.sp,
                     modifier = Modifier.padding(20.dp),
                     fontWeight = FontWeight.Bold
                 )
-                ShowLazyList(users)
+                //ShowLazyList(users)
                 Chart()
                 ChallengeBox()
 

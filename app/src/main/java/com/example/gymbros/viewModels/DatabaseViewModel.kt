@@ -21,11 +21,13 @@ class DatabaseViewModel : ViewModel() {
 
     var friendsNames = mutableListOf<String>()
     private var friendsId = mutableListOf<String>()
-    private var friendRequests = mutableListOf<String>()
+    var friendRequestsId = mutableListOf<String>() //to w friendsach trza zmenic na usery
+    val friendRequests = mutableListOf<User>()
+
     val allUsernames = mutableListOf<String>()
 
 
-    val list = mutableListOf<User>()
+    val listOfFriends = mutableListOf<User>()
 
 
     var userId = mutableStateOf("")
@@ -44,17 +46,10 @@ class DatabaseViewModel : ViewModel() {
         query.get().addOnSuccessListener { documentSnapshots ->
             if (!documentSnapshots.isEmpty) {
                 val user = documentSnapshots.documents[0]
-                println(user.id + " => " + user.data)
+                println(user.id + " => " + user.data) //TODO: remove
                 userId.value = user.id
                 val username = user.getString("username")
-                if (username == currentUsername.value || list.contains(
-                        User(
-                            userId.value,
-                            null,
-                            null
-                        )
-                    )
-                ) {//friendsId.contains(userId.value)) {
+                if (username == currentUsername.value || friendsId.contains(userId.value)) {
                     fetchNextUser()
                 } else {
                     userData.value = username ?: "null"
@@ -75,6 +70,7 @@ class DatabaseViewModel : ViewModel() {
                 if (document != null) {
                     val username = document.getString("username")
                     friendsId = document.get("friends") as MutableList<String>
+                    friendRequestsId = document.get("friend-requests") as MutableList<String>
                     //friendRequests = document.get("friend-requests") as MutableList<String>
                     currentUsername.value = username ?: "null"
                 }
@@ -91,8 +87,11 @@ class DatabaseViewModel : ViewModel() {
                     val username = documentSnapshot.getString("username")
                     val style = documentSnapshot.getString("style") ?: "null"
                     //val friends = documentSnapshot.getString("friends")
-                    if (friendsId.contains(id) && !list.contains(User(id, username, style))) {
-                        list.add(User(id, username, style))
+                    if (friendsId.contains(id) && !listOfFriends.contains(User(id, username, style))) {
+                        listOfFriends.add(User(id, username, style))
+                    }
+                    if (friendRequestsId.contains(id) && !friendRequests.contains(User(id, username, style))) {
+                        friendRequests.add(User(id, username, style))
                     }
                 }
             }
@@ -117,7 +116,8 @@ class DatabaseViewModel : ViewModel() {
         }
     }
 
-    fun acceptFriendRequest(id: String) {
+    fun acceptFriendRequest(user: User) {
+        val id = user.id!!
         val uid = auth.currentUser?.uid
         if (uid != null) {
             //current user
@@ -151,39 +151,9 @@ class DatabaseViewModel : ViewModel() {
                 }
             }
         }
+        friendRequests.remove(user)
     }
 
-
-//    fun getFriends() {
-//        val uid = auth.currentUser?.uid
-//        if (uid != null) {
-//            usersRef.document(uid).get().addOnSuccessListener { document ->
-//                if (document != null) {
-//                    friendsId = document.get("friends") as MutableList<String>
-//                    //friendRequests = document.get("friend-requests") as MutableList<String>
-//                }
-//            }
-//        }
-//    }
-
-
-//    fun getFriendsNames() {
-//        for(name in friendsId) {
-//            usersRef.document(name).get().addOnSuccessListener { document ->
-//                if (document != null) {
-//                    friendsNames.add(document.getString("username") ?: "null")
-//                    val id = document.id
-//                    val username = document.getString("username")
-//                    val style = document.getString("style") ?: "null"
-//                    //val friends = documentSnapshot.getString("friends")
-//
-//                    if (username != null) {
-//                        list.add(User(id, username, style))
-//                        Log.d(ContentValues.TAG, "Username: $username")
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
+
 

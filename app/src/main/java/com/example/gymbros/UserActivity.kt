@@ -16,8 +16,9 @@ class UserActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController, startDestination = "home") {
                 composable("home") { HomePage(navController, databaseViewModel) }
-                composable("profile") { Profile(navController, databaseViewModel) }
-                composable("match") { Match(databaseViewModel) }
+                composable("profile") { Profile(navController) }
+                composable("match") { Match(navController, databaseViewModel) }
+                composable("friends") { Friends(navController, databaseViewModel) }
             }
         }
     }
