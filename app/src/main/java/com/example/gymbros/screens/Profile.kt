@@ -26,7 +26,7 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) {
-    val username by remember { mutableStateOf(databaseViewModel.currentUsername.value) }
+    val username by remember { mutableStateOf(databaseViewModel.currentUser.value.username) }
     val context = LocalContext.current
 
     Scaffold(
@@ -52,14 +52,9 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
 
             Button(onClick = { }) {
 //                AuthViewModel().signOut(context)
-//                val i = Intent(context, MainActivity::class.java)
-//                context.startActivity(i)
-//                }) {
+//          }) {
                 Text(text = "Sign Out")
             }
-//            Button(onClick = { navController.navigate("friends") }) {
-//                Text(text = "Friends")
-//            }
         }
     }
 }

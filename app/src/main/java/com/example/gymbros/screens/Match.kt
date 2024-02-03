@@ -26,6 +26,7 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun Match(navController: NavController, viewModel: DatabaseViewModel) {
+    val user = viewModel.fetchedUser.value
     Scaffold(
         bottomBar = {
             NavigationBar(navController)
@@ -43,7 +44,11 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
                     .padding(16.dp)
                     .clip(RoundedCornerShape(15.dp))
             )
-            Text(text = viewModel.userData.value)
+
+            Text(text = "${user.username}'s Profile")
+            Text(text = "Bio: ${user.bio}")
+            Text(text = "Preference: ${user.preference}")
+
             Spacer(modifier = Modifier.padding(16.dp))
             Row {
                 Button(

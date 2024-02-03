@@ -25,42 +25,39 @@ class DatabaseViewModel : ViewModel() {
 
     val friendRequests = mutableListOf<User>()
     val listOfFriends = mutableListOf<User>()
-    val bio = mutableStateOf("")
 
-    private var userId = mutableStateOf("")
-    val userData = mutableStateOf("did not fetch yet")
-    val currentUsername = mutableStateOf("username")
-    val currentuserinfo = mutableStateOf(User())
+    val fetchedUser = mutableStateOf(User("", "null", "null", "null"))
+    val currentUser = mutableStateOf(User("", "username", "null", "null"))
 
     fun fetchNextUser() {
-        var query = database.collection("users")
-            .orderBy("username")
-            .limit(1)
+        try {
+            var query = database.collection("users").limit(1)
 
-        if (lastVisible != null) {
-            query = query.startAfter(lastVisible!!)
-        }
-
-        query.get().addOnSuccessListener { documentSnapshots ->
-            if (!documentSnapshots.isEmpty) {
-                val user = documentSnapshots.documents[0]
-                println(user.id + " => " + user.data) //TODO: remove
-                userId.value = user.id
-                val username = user.getString("username")
-                val preference = user.getString("preference")
-                val bio = user.getString("bio")
-
-
-                if (username == currentUsername.value || friendsId.contains(userId.value)) {
-                    fetchNextUser()
-                } else {
-                    userData.value = username ?: "null"
-                }
-                lastVisible = user
-            } else {
-                println("No more users.")
-                lastVisible = null //to jest żeby w kółko pobierało
+            if (lastVisible != null) {
+                query = query.startAfter(lastVisible!!)
             }
+
+            query.get().addOnSuccessListener { documentSnapshots ->
+                if (documentSnapshots.isEmpty) {
+                    println("No more users.")
+                    lastVisible = null //to jest żeby w kółko pobierało
+                } else {
+                    val user = documentSnapshots.documents[0]
+                    val username = user.getString("username")
+
+                    if (username != currentUser.value.username && !friendsId.contains(user.id)) {
+                        val preference = user.getString("preference")
+                        val bio = user.getString("bio")
+                        fetchedUser.value = User(user.id, username, preference, bio)
+                    }
+                    lastVisible = user
+                    fetchNextUser()
+                }
+            }.addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+            }
+        } catch (e: Exception) {
+            println("Error executing fetchNextUser: $e")
         }
     }
 
@@ -74,12 +71,11 @@ class DatabaseViewModel : ViewModel() {
                     val bio = document.getString("bio")
                     friendsId = document.get("friends") as MutableList<String>
                     friendRequestsId = document.get("friend-requests") as MutableList<String>
-                    currentUsername.value = username ?: "null"
-                    currentuserinfo.value = User(uid, username, preference, bio)
+                    currentUser.value = User(uid, username, preference, bio)
                 }
             }
         }
-        if(userId.value == "") fetchNextUser()
+        if (fetchedUser.value.id == "") fetchNextUser()
     }
 
     fun fetchDataFromFirebase() {
@@ -93,10 +89,26 @@ class DatabaseViewModel : ViewModel() {
                     val bio = documentSnapshot.getString("bio")
                     //val friends = documentSnapshot.getString("friends")
 
-                    if (friendsId.contains(id) && !listOfFriends.contains(User(id, username, preference, bio))) {
+                    if (friendsId.contains(id) && !listOfFriends.contains(
+                            User(
+                                id,
+                                username,
+                                preference,
+                                bio
+                            )
+                        )
+                    ) {
                         listOfFriends.add(User(id, username, preference, bio))
                     }
-                    if (friendRequestsId.contains(id) && !friendRequests.contains(User(id, username, preference, bio))) {
+                    if (friendRequestsId.contains(id) && !friendRequests.contains(
+                            User(
+                                id,
+                                username,
+                                preference,
+                                bio
+                            )
+                        )
+                    ) {
                         friendRequests.add(User(id, username, preference, bio))
                     }
                 }
@@ -107,19 +119,23 @@ class DatabaseViewModel : ViewModel() {
 
     fun sendFriendRequest() {
         val uid = auth.currentUser?.uid
-        usersRef.document(userId.value).get().addOnSuccessListener { document ->
-            if (document != null) {
-                val friendRequests = document.get("friend-requests") as MutableList<String>
-                if (!friendRequests.contains(uid) || friendRequests.isEmpty()) {
-                    if (uid != null) {
-                        friendRequests.add(uid)
+        val fetcheduid = fetchedUser.value.id
+        if (fetcheduid != null) {
+            usersRef.document(fetcheduid).get().addOnSuccessListener { document ->
+                if (document != null) {
+                    val friendRequests = document.get("friend-requests") as MutableList<String>
+                    if (!friendRequests.contains(uid) || friendRequests.isEmpty()) {
+                        if (uid != null) {
+                            friendRequests.add(uid)
+                        }
+                        usersRef.document(fetcheduid).update("friend-requests", friendRequests)
+                    } else {
+                        Log.d(TAG, "friend request already sent")
                     }
-                    usersRef.document(userId.value).update("friend-requests", friendRequests)
-                } else {
-                    Log.d(TAG, "friend request already sent")
                 }
             }
         }
+
     }
 
     fun acceptFriendRequest(user: User) {

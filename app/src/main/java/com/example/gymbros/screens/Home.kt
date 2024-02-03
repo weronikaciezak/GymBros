@@ -36,10 +36,11 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     .fillMaxSize()
                     .padding(padding)
             ) {
-                //val username = databaseViewModel.currentuserinfo.value.username
-                val username = databaseViewModel.currentUsername.value
-                val users = databaseViewModel.listOfFriends
-                TopSection(username)
+                val username = databaseViewModel.currentUser.value.username
+                val users = databaseViewModel.listOfFriends //TODO: remove
+                if (username != null) {
+                    TopSection(username)
+                }
                 Text(text = "Welcome Back!",
                     fontSize = 30.sp,
                     modifier = Modifier.padding(20.dp),
