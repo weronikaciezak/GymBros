@@ -55,7 +55,6 @@ class AuthViewModel : ViewModel() {
                     )
                     db.collection("users").document(userId).set(userData)
                 }
-
                 //Tasks.forResult(null)
             }
     }
