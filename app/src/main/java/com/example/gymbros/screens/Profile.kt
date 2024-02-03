@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,20 +11,24 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.gymbros.R
 import com.example.gymbros.functions.NavigationBar
+import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
-fun Profile(navController: NavController) { //, databaseViewModel: DatabaseViewModel) {
-    //val username by remember { mutableStateOf(databaseViewModel.currentUsername.value) }
-    //val context = LocalContext.current
-    val username = "user"
+fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) {
+    val username by remember { mutableStateOf(databaseViewModel.currentUsername.value) }
+    val context = LocalContext.current
+
     Scaffold(
         bottomBar = {
             NavigationBar(navController)
@@ -43,23 +47,25 @@ fun Profile(navController: NavController) { //, databaseViewModel: DatabaseViewM
                 contentDescription = null
             )
 
-
-
             Text(text = "Welcome $username!", style = MaterialTheme.typography.h4)
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { }) {//AuthViewModel().signOut(context) }) {
+            Button(onClick = { }) {
+//                AuthViewModel().signOut(context)
+//                val i = Intent(context, MainActivity::class.java)
+//                context.startActivity(i)
+//                }) {
                 Text(text = "Sign Out")
             }
-            Button(onClick = { navController.navigate("friends") }) {
-                Text(text = "Friends")
-            }
+//            Button(onClick = { navController.navigate("friends") }) {
+//                Text(text = "Friends")
+//            }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProfilePreview() {
-    Profile(rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProfilePreview() {
+//    Profile(rememberNavController())
+//}

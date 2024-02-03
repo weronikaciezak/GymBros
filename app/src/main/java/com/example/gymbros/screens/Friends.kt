@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.gymbros.R
+import com.example.gymbros.User
 import com.example.gymbros.functions.NavigationBar
 import com.example.gymbros.viewModels.DatabaseViewModel
 
@@ -47,7 +49,7 @@ fun Friends(navController: NavController, databaseViewModel: DatabaseViewModel) 
             if (friendrequests.isNotEmpty()) {
                 Text(
                     text = "Friend Requests",
-                    //fontSize = 30.dp,
+                    style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier.padding(20.dp),
                     fontWeight = FontWeight.Bold
                 )
@@ -56,10 +58,19 @@ fun Friends(navController: NavController, databaseViewModel: DatabaseViewModel) 
 
             Text(
                 text = "Friends",
+                style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.padding(20.dp),
                 fontWeight = FontWeight.Bold
             )
-            ShowFriends(friends)
+            if (friends.isEmpty()) {
+                Text(
+                    text = "You have no friends yet",
+                    modifier = Modifier.padding(20.dp),
+                    fontWeight = FontWeight.Light
+                )
+            } else {
+                ShowFriends(friends)
+            }
         }
     }
 }
@@ -68,7 +79,7 @@ fun Friends(navController: NavController, databaseViewModel: DatabaseViewModel) 
 @Preview(showBackground = true)
 @Composable
 fun FriendsPreview() {
-    val users = mutableListOf(User("1","user1", "bieganie"), User("2","user2", "bieganie"))
+    val users = mutableListOf(User("1", "user1", "bieganie"), User("2", "user2", "bieganie"))
     ShowFriends(users)
 }
 
@@ -115,7 +126,7 @@ fun FriendRequestList(user: User, databaseViewModel: DatabaseViewModel) {
             )
             Row {
                 Text(
-                    text = user.style!!, //TODO: change to user's interest
+                    text = user.preference!!,
                     modifier = Modifier.padding(start = 8.dp),
                     style = MaterialTheme.typography.overline,
                     color = Color.DarkGray
@@ -167,7 +178,7 @@ fun FriendsList(user: User) {
             )
             Row {
                 Text(
-                    "bieganie", //TODO: change to user's interest
+                    text = user.preference!!,
                     modifier = Modifier.padding(start = 8.dp),
                     style = MaterialTheme.typography.overline,
                     color = Color.DarkGray

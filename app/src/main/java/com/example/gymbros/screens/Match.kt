@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.gymbros.R
 import com.example.gymbros.functions.NavigationBar
 import com.example.gymbros.viewModels.DatabaseViewModel
 
@@ -45,12 +46,13 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
             Text(text = viewModel.userData.value)
             Spacer(modifier = Modifier.padding(16.dp))
             Row {
-                Button(onClick = {
-                    viewModel.sendFriendRequest()
-                    viewModel.fetchNextUser()
-                }, modifier = Modifier
-                    .clip(RoundedCornerShape(15.dp))
-                    .padding(16.dp),
+                Button(
+                    onClick = {
+                        viewModel.sendFriendRequest()
+                        viewModel.fetchNextUser()
+                    }, modifier = Modifier
+                        .clip(RoundedCornerShape(15.dp))
+                        .padding(16.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Green,
                         contentColor = Color.White
@@ -58,7 +60,8 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
                 ) {
                     Text("Add Friend")
                 }
-                Button(onClick = { viewModel.fetchNextUser() },
+                Button(
+                    onClick = { viewModel.fetchNextUser() },
                     modifier = Modifier
                         .clip(RoundedCornerShape(15.dp))
                         .padding(16.dp),

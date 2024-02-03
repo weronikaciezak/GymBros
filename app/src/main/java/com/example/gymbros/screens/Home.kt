@@ -1,4 +1,4 @@
-package com.example.gymbros
+package com.example.gymbros.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,6 +36,7 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     .fillMaxSize()
                     .padding(padding)
             ) {
+                //val username = databaseViewModel.currentuserinfo.value.username
                 val username = databaseViewModel.currentUsername.value
                 val users = databaseViewModel.listOfFriends
                 TopSection(username)
