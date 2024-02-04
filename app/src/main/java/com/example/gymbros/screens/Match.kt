@@ -1,6 +1,8 @@
 package com.example.gymbros.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +34,7 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
             NavigationBar(navController)
         }
     ) { padding ->
-        if (user.username != "username") {
+        if (user.id != "") {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -83,9 +85,14 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
         } else {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ){
                 Text("No more users to match with!", modifier = Modifier.padding(16.dp), color = Color.Gray)
+
+                Text("Clik to search again", modifier = Modifier.clickable {
+                    viewModel.fetchNextUser()
+                })
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gymbros.MainActivity
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -42,7 +43,7 @@ class AuthViewModel : ViewModel() {
                     val user = auth.currentUser
                     val userId = user?.uid ?: ""
                     val db = Firebase.firestore
-                    val emptylist = arrayListOf("")
+                    val emptylist = arrayListOf<String>()
                     val userData = hashMapOf(
                         "id" to userId,
                         "username" to username,
@@ -55,7 +56,7 @@ class AuthViewModel : ViewModel() {
                     )
                     db.collection("users").document(userId).set(userData)
                 }
-                //Tasks.forResult(null)
+                Tasks.forResult(null)
             }
     }
 

@@ -50,7 +50,9 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) {
     val user = databaseViewModel.currentUser.value
     databaseViewModel.getUserData()
+    databaseViewModel.getWorkouts()
     val workouts = databaseViewModel.listOfWorkouts
+    val w = workouts.distinctBy { it.id }
     val context = LocalContext.current
 
     Scaffold(
@@ -116,7 +118,7 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
                     .padding(16.dp)
             ) {
                 LazyColumn {
-                    items(workouts) { workout ->
+                    items(w) { workout ->
                         WorkoutInfoBlock(workout)
                     }
                 }
@@ -170,7 +172,7 @@ fun WorkoutInfoBlock(workout: Workout) {
             if(date != "") Text(text = "Date: $date", style = MaterialTheme.typography.body1, color = Color.White)
             if(description != "") Text(text = "$description", style = MaterialTheme.typography.body1, color = Color.White)
             if (participants != null) {
-                if(participants.isNotEmpty()) Text(text = "Participants: $participants", style = MaterialTheme.typography.body1, color = Color.White)
+                Text(text = "Participants: $participants", style = MaterialTheme.typography.body1, color = Color.White)
             }
         }
     }

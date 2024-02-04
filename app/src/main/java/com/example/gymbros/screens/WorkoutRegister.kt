@@ -81,7 +81,9 @@ fun WorkoutRegister(navController: NavController, databaseViewModel: DatabaseVie
                     Text("Cancel")
                 }
                 Button(onClick = {
-                    databaseViewModel.registerWorkout(Workout("null", type, description, date, duration, selectedFriends))
+                    databaseViewModel.currentUser.value.username?.let { selectedFriends.add(it) }
+                    val users = databaseViewModel.changeFromUsernametoId(selectedFriends)
+                    databaseViewModel.registerWorkout(Workout("null", type, description, date, duration, selectedFriends), users)
                     Toast.makeText(context, "Workout registered successfully!", Toast.LENGTH_SHORT).show()
                     navController.navigate("Profile")
                 },
@@ -145,7 +147,7 @@ fun WorkoutRegister(navController: NavController, databaseViewModel: DatabaseVie
                 Text(text = "Add a description")
                 TextField(value = description, onValueChange = { description = it })
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Add participants")
+                if(friends.isNotEmpty()) Text(text = "Add participants") //TODO: check if works
 
                 friends.forEach() { friend ->
                     Row(

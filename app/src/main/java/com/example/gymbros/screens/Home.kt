@@ -23,8 +23,9 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel) {
+    databaseViewModel.fetchDataFromFirebase()//to bylo po getuserdata
     databaseViewModel.getUserData() //wtedy dziala
-    databaseViewModel.fetchDataFromFirebase()
+
     GymBrosTheme {
         Scaffold(
             bottomBar = {

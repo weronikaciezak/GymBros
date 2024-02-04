@@ -110,6 +110,7 @@ fun EditProfile(navController: NavController, databaseViewModel: DatabaseViewMod
             Spacer(modifier = Modifier.width(16.dp))
             Button(onClick = {
                 databaseViewModel.editProfile(username, type, bio)
+                databaseViewModel.fetchNextUser() //TODO: change IF USELESS
                 Toast.makeText(context, "Changes saved!", Toast.LENGTH_SHORT).show()
                 navController.navigate("Profile")
             },
