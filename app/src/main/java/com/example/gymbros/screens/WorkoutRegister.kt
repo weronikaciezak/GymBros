@@ -72,7 +72,7 @@ fun WorkoutRegister(navController: NavController, databaseViewModel: DatabaseVie
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 Button(onClick = {
-                    navController.navigate("Profile")
+                    navController.navigate("Home")
                 },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.White,
@@ -85,7 +85,7 @@ fun WorkoutRegister(navController: NavController, databaseViewModel: DatabaseVie
                     val users = databaseViewModel.changeFromUsernametoId(selectedFriends)
                     databaseViewModel.registerWorkout(Workout("null", type, description, date, duration, selectedFriends), users)
                     Toast.makeText(context, "Workout registered successfully!", Toast.LENGTH_SHORT).show()
-                    navController.navigate("Profile")
+                    navController.navigate("Home")
                 },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.LightGray,

@@ -98,7 +98,7 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(
                     onClick = {
-                        //AuthViewModel().signOut(context)
+                        //AuthViewModel().signOut(context) //TODO: implement sign out
                     },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.LightGray,
@@ -167,7 +167,7 @@ fun WorkoutInfoBlock(workout: Workout) {
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.padding(16.dp)
         ) {
-            if(type != "") Text(text = "Type of workout: $type", style = MaterialTheme.typography.body1, color = Color.White)
+            if(type != "") Text(text = "$type", style = MaterialTheme.typography.subtitle2, color = Color.White)
             if(duration != "") Text(text = "Time: $duration", style = MaterialTheme.typography.body1, color = Color.White)
             if(date != "") Text(text = "Date: $date", style = MaterialTheme.typography.body1, color = Color.White)
             if(description != "") Text(text = "$description", style = MaterialTheme.typography.body1, color = Color.White)

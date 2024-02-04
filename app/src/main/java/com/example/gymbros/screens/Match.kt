@@ -34,7 +34,7 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
             NavigationBar(navController)
         }
     ) { padding ->
-        if (user.id != "") {
+        if (user.id != "null") {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -90,7 +90,7 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
             ){
                 Text("No more users to match with!", modifier = Modifier.padding(16.dp), color = Color.Gray)
 
-                Text("Clik to search again", modifier = Modifier.clickable {
+                Text("Refresh", modifier = Modifier.clickable {
                     viewModel.fetchNextUser()
                 })
             }

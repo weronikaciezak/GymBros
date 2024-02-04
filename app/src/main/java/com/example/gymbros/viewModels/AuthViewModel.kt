@@ -50,9 +50,9 @@ class AuthViewModel : ViewModel() {
                         "preference" to "null",
                         "friends" to emptylist,
                         "friend-requests" to emptylist,
-                        "location" to "null",
                         "bio" to "no bio yet",
-                        "workouts" to emptylist
+                        "workouts" to emptylist,
+                        "challenges" to emptylist
                     )
                     db.collection("users").document(userId).set(userData)
                 }

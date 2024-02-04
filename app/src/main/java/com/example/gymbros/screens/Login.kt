@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -63,12 +62,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
         }) {
             Text("Login")
         }
-        Button(
-            onClick = {
-                navController.navigate("signup")
-            }, modifier = Modifier.padding(end = 10.dp),
-            shape = RoundedCornerShape(50),
-        ) {
+        Button(onClick = {
+            navController.navigate("signup")
+        }) {
             Text("Sign Up")
         }
         Text(text = "No account yet? Sign up!",
@@ -80,7 +76,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                 if (status == true) {
                     context.startActivity(i)
                 } else {
-                    text = "nuh uh" //TODO: change to proper error message
+                    text = "błędne dane logowania"
                 }
             }
         }

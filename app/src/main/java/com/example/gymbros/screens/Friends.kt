@@ -34,6 +34,7 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun Friends(navController: NavController, databaseViewModel: DatabaseViewModel) {
+    databaseViewModel.getUserData() //TODO: remove if doesn't work
     val friends = databaseViewModel.listOfFriends
     val friendrequests = databaseViewModel.friendRequests
     Scaffold(
