@@ -23,7 +23,7 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel) {
-    databaseViewModel.getUsername() //wtedy dziala
+    databaseViewModel.getUserData() //wtedy dziala
     databaseViewModel.fetchDataFromFirebase()
     GymBrosTheme {
         Scaffold(
@@ -37,7 +37,6 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     .padding(padding)
             ) {
                 val username = databaseViewModel.currentUser.value.username
-                val users = databaseViewModel.listOfFriends //TODO: remove
                 if (username != null) {
                     TopSection(username)
                 }
@@ -46,7 +45,6 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     modifier = Modifier.padding(20.dp),
                     fontWeight = FontWeight.Bold
                 )
-                //ShowLazyList(users)
                 Chart()
                 ChallengeBox()
 

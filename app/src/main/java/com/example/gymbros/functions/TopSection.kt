@@ -62,5 +62,5 @@ fun TopSection(username: String) {
 @Preview(showBackground = true)
 @Composable
 fun TopSectionPreview() {
-    TopSection("sraka")
+    TopSection("username")
 }

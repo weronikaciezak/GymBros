@@ -32,51 +32,60 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
             NavigationBar(navController)
         }
     ) { padding ->
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.user_default_icon),
-                contentDescription = "user icon",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(15.dp))
-            )
-
-            Text(text = "${user.username}'s Profile")
-            Text(text = "Bio: ${user.bio}")
-            Text(text = "Preference: ${user.preference}")
-
-            Spacer(modifier = Modifier.padding(16.dp))
-            Row {
-                Button(
-                    onClick = {
-                        viewModel.sendFriendRequest()
-                        viewModel.fetchNextUser()
-                    }, modifier = Modifier
-                        .clip(RoundedCornerShape(15.dp))
-                        .padding(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Green,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text("Add Friend")
-                }
-                Button(
-                    onClick = { viewModel.fetchNextUser() },
+        if (user.username != "username") {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.user_default_icon),
+                    contentDescription = "user icon",
                     modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                         .clip(RoundedCornerShape(15.dp))
-                        .padding(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text("Next User")
+                )
+
+                Text(text = "${user.username}'s Profile")
+                Text(text = "Bio: ${user.bio}")
+                Text(text = "Preference: ${user.preference}")
+
+                Spacer(modifier = Modifier.padding(16.dp))
+                Row {
+                    Button(
+                        onClick = {
+                            viewModel.sendFriendRequest()
+                            viewModel.fetchNextUser()
+                        }, modifier = Modifier
+                            .clip(RoundedCornerShape(15.dp))
+                            .padding(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Green,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Add Friend")
+                    }
+                    Button(
+                        onClick = { viewModel.fetchNextUser() },
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(15.dp))
+                            .padding(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Red,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Next User")
+                    }
                 }
+            }
+        } else {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text("No more users to match with!", modifier = Modifier.padding(16.dp), color = Color.Gray)
             }
         }
     }

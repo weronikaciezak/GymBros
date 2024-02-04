@@ -9,3 +9,12 @@ data class User(
     var bio: String? = null,
     //var friends: MutableList<String>? = null,
 )
+
+data class Workout(
+    var id: String? = null,
+    var type: String? = null,
+    var description: String? = null,
+    var date: String? = null,
+    var duration: String? = null,
+    var participants: MutableList<String>? = null,
+)
