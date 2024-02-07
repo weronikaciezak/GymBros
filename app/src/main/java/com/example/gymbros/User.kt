@@ -16,3 +16,8 @@ data class Workout(
     var duration: String? = null,
     var participants: MutableList<String>? = null,
 )
+
+data class Challenge (
+    var id: String? = null,
+    var text: String? = null,
+)

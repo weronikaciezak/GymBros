@@ -40,7 +40,7 @@ fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
     ) {
         if(challenge != "") {
             Column {
-                Text(text = "Today's challenge",
+                Text(text = "Current challenge",
                     modifier = Modifier.padding(15.dp),
                     style = MaterialTheme.typography.titleMedium)
 
@@ -58,7 +58,6 @@ fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
                         databaseViewModel.deleteChallenge(challenge)
                     })
                     Button(onClick = {
-//                      val date = Date()
                         databaseViewModel.fetchNextChallenge()
                         val list = mutableListOf<String>()
                         databaseViewModel.currentUser.value.id?.let { list.add(it) }
@@ -73,11 +72,11 @@ fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
                     }
                 }
                 } else {
-                    Text(text = "  No challenges for today", modifier = Modifier.padding(20.dp))
+                    Text(text = "  No challenges for now", modifier = Modifier.padding(20.dp))
                 }
             }
         } else {
-            Text(text = "No challenges for today",
+            Text(text = "No challenges for now",
                 modifier = Modifier.padding(20.dp),
                 style = MaterialTheme.typography.titleMedium)
         }

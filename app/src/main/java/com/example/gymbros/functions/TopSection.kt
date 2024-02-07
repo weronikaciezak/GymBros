@@ -19,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +41,7 @@ fun TopSection(username: String) {
             Text(
                 text = "Hello, @$username",
                 fontSize = 20.sp,
-                //fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Bold,
                 color = Mango
             )
             Box(
@@ -52,7 +54,7 @@ fun TopSection(username: String) {
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = "Search",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    tint = Color.White
                 )
             }
         }

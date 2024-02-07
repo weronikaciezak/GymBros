@@ -3,13 +3,16 @@ package com.example.gymbros.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -48,9 +51,15 @@ fun Match(navController: NavController, viewModel: DatabaseViewModel) {
                         .clip(RoundedCornerShape(15.dp))
                 )
 
-                Text(text = "${user.username}'s Profile")
-                Text(text = "Bio: ${user.bio}")
+                Text(text = "${user.username}", style = MaterialTheme.typography.subtitle1)
                 Text(text = "Preference: ${user.preference}")
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.width(300.dp)
+                ) {
+                    Text(text = "${user.bio}")
+                }
+                //Text(text = "${user.bio}", modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally).padding(horizontal =  16.dp))
 
                 Spacer(modifier = Modifier.padding(16.dp))
                 Row {

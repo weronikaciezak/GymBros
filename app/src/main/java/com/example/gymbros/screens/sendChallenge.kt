@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -55,21 +56,26 @@ fun SendChallenge(navController: NavController, databaseViewModel: DatabaseViewM
                     )) {
                     Text("Cancel")
                 }
-                Button(onClick = {
-                    databaseViewModel.sendChallenge(selectedFriends, text, context)
-                    navController.navigate("Home")
-                },
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color.LightGray,
-                        contentColor = Color.White
-                    )) {
-                    Text("Send")
+                if(friends.isNotEmpty()) {
+                    Button(
+                        onClick = {
+                            databaseViewModel.sendChallenge(selectedFriends, text, context)
+                            navController.navigate("Home")
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.LightGray,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Send")
+                    }
                 }
             }
         }
     ) { padding ->
         Column(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(16.dp)
         ) {
 
@@ -81,7 +87,14 @@ fun SendChallenge(navController: NavController, databaseViewModel: DatabaseViewM
                     onValueChange = { text = it },
                 )
             } else {
-                Text(text = "You have no friends to challenge!")
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "You have no friends to challenge!")
+                }
+
             }
             friends.forEach { friend ->
                 Row(

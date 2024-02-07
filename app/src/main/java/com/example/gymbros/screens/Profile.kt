@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -79,8 +80,8 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
 
             Text(text = "${user.username}", style = MaterialTheme.typography.h4)
             Spacer(modifier = Modifier.height(14.dp))
+            Text(text = "Preference: ${user.preference}", fontWeight = FontWeight.Bold)
             Text(text = "${user.bio}")
-            Text(text = "Preference: ${user.preference}")
             Spacer(modifier = Modifier.height(10.dp))
 
             Row {
@@ -135,7 +136,7 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
             onClick = {
                 navController.navigate("workoutRegister")
             },
-            backgroundColor = Mango, //TODO: change to proper color
+            backgroundColor = Mango,
             modifier = Modifier
                 .padding(16.dp)
                 .offset(y = (-60).dp)
@@ -167,7 +168,7 @@ fun WorkoutInfoBlock(workout: Workout) {
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.padding(16.dp)
         ) {
-            if(type != "") Text(text = "$type", style = MaterialTheme.typography.subtitle2, color = Color.White)
+            if(type != "") Text(text = "$type", style = MaterialTheme.typography.subtitle1, color = Color.White)
             if(duration != "") Text(text = "Time: $duration", style = MaterialTheme.typography.body1, color = Color.White)
             if(date != "") Text(text = "Date: $date", style = MaterialTheme.typography.body1, color = Color.White)
             if(description != "") Text(text = "$description", style = MaterialTheme.typography.body1, color = Color.White)

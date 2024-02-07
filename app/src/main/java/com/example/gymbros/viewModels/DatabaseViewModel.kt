@@ -121,6 +121,7 @@ class DatabaseViewModel : ViewModel() {
             }
         }
         if (fetchedUser.value.id == "") fetchNextUser()
+        if (fetchedChallenge.value == "You have no challenges.") fetchNextChallenge()
     }
 
 
@@ -327,9 +328,9 @@ class DatabaseViewModel : ViewModel() {
         val userRef = db.collection("users").document(userId)
         userRef.get().addOnSuccessListener { document ->
             if (document != null) {
-                val challenges = document.get("challenges") as MutableList<String>
-                challenges.remove(challenge)
-                userRef.update("challenges", challenges)
+                val tmpchallenges = document.get("challenges") as MutableList<String>
+                tmpchallenges.remove(challenge)
+                userRef.update("challenges", tmpchallenges)
             }
         }
         challenges.remove(challenge)
@@ -352,11 +353,12 @@ class DatabaseViewModel : ViewModel() {
                     val text = challenge.getString("text")
                     val id = challenge.getString("id")
                     if (challenges.contains(id)) {
+                        println("mam challenge")
                         if (text != null) {
                             fetchedChallenge.value = text
                         }
                     } else {
-                        fetchNextUser()
+                        fetchNextChallenge()
                     }
                     lastVisibleChallenge = challenge
                 }

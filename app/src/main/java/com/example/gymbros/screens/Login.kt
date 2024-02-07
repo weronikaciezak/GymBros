@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.gymbros.Preferences
 import com.example.gymbros.UserActivity
+import com.example.gymbros.ui.theme.Mango
 import com.example.gymbros.viewModels.AuthViewModel
 
 @Composable
@@ -59,12 +62,20 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
         Text(text, color = MaterialTheme.colorScheme.error)
         Button(onClick = {
             authViewModel.signInWithEmailAndPassword(email, password)
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Mango,
+                contentColor = Color.White
+            )) {
             Text("Login")
         }
         Button(onClick = {
             navController.navigate("signup")
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.LightGray,
+                contentColor = Color.White
+            )) {
             Text("Sign Up")
         }
         Text(text = "No account yet? Sign up!",
@@ -105,7 +116,11 @@ fun SignUpScreen(navController: NavController, authViewModel: AuthViewModel) {
         TextField(value = username, onValueChange = { username = it }, label = { Text("Username") })
         Button(onClick = {
             authViewModel.signUpWithEmailAndPassword(email, password, username)
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Mango,
+                contentColor = Color.White
+            )) {
             Text("Sign Up")
         }
         Text(text, color = MaterialTheme.colorScheme.error)
@@ -139,7 +154,10 @@ fun PreferencesScreen(authViewModel: AuthViewModel) {
         Button(onClick = {
             authViewModel.setPreference(preference.value)
             context.startActivity(i)
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Mango
+            )) {
             Text(text = "Let's go!")
         }
     }

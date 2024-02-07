@@ -29,13 +29,14 @@ import com.example.gymbros.functions.ChallengeBox
 import com.example.gymbros.functions.NavigationBar
 import com.example.gymbros.functions.TopSection
 import com.example.gymbros.ui.theme.GymBrosTheme
+import com.example.gymbros.ui.theme.Mango
 import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel) {
     databaseViewModel.fetchDataFromFirebase()//to bylo po getuserdata
     databaseViewModel.getUserData() //wtedy dziala
-    databaseViewModel.fetchNextChallenge()
+    val challenge = databaseViewModel.fetchedChallenge.value
     GymBrosTheme {
         Scaffold(
             bottomBar = {
@@ -66,19 +67,19 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                     Box(
                         modifier = Modifier
                             .height(120.dp)
-                            .width(170.dp)
+                            .width(177.dp)
                             .shadow(5.dp)
-                            .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
+                            .background(Mango, shape = RoundedCornerShape(15.dp))
                             .clickable {
                                 navController.navigate("workoutRegister")
                             }
 
-                    ) { Text(text = "Register workout", color = Color.White, modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.h6) }
+                    ) { Text(text = "Register       workout", color = Color.White, modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.h6) }
 
                     Box(
                         modifier = Modifier
                             .height(120.dp)
-                            .width(170.dp)
+                            .width(177.dp)
                             .shadow(5.dp)
                             .background(Color.White, shape = RoundedCornerShape(15.dp))
                             .clickable {
@@ -86,7 +87,6 @@ fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel)
                             }
                     ) { Text(text = "Challenge someone!", modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.h6) }
                 }
-                val challenge = databaseViewModel.fetchedChallenge.value
                 ChallengeBox(challenge, databaseViewModel)
             }
         }
