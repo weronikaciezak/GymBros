@@ -45,6 +45,7 @@ import com.example.gymbros.R
 import com.example.gymbros.Workout
 import com.example.gymbros.functions.NavigationBar
 import com.example.gymbros.ui.theme.Mango
+import com.example.gymbros.viewModels.AuthViewModel
 import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
@@ -99,7 +100,7 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(
                     onClick = {
-                        //AuthViewModel().signOut(context) //TODO: implement sign out
+                        AuthViewModel().signOut(context) //TODO: implement sign out
                     },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.LightGray,
@@ -144,8 +145,6 @@ fun Profile(navController: NavController, databaseViewModel: DatabaseViewModel) 
             Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.White)
         }
     }
-
-
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

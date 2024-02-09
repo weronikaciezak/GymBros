@@ -21,12 +21,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.gymbros.Challenge
 import com.example.gymbros.Workout
 import com.example.gymbros.ui.theme.Mango
 import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
-fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
+fun ChallengeBox(challenge: Challenge, databaseViewModel: DatabaseViewModel) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,14 +39,14 @@ fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
 
         contentAlignment = Alignment.TopStart
     ) {
-        if(challenge != "") {
+        if(challenge.text != "") {
             Column {
                 Text(text = "Current challenge",
                     modifier = Modifier.padding(15.dp),
                     style = MaterialTheme.typography.titleMedium)
 
-                if(challenge != "You have no challenges.") {
-                    Text(text = "* $challenge", modifier = Modifier.padding(10.dp))
+                if(challenge.text != "You have no challenges.") {
+                    Text(text = "* ${challenge.text}", modifier = Modifier.padding(10.dp))
                 Row (
                     modifier = Modifier
                         .padding(20.dp)
@@ -61,7 +62,7 @@ fun ChallengeBox(challenge: String, databaseViewModel: DatabaseViewModel) {
                         databaseViewModel.fetchNextChallenge()
                         val list = mutableListOf<String>()
                         databaseViewModel.currentUser.value.id?.let { list.add(it) }
-                        databaseViewModel.registerWorkout(Workout("null", "Challenge", challenge, "", "", list), list)
+                        databaseViewModel.registerWorkout(Workout("null", "Challenge", challenge.text, "", "", list), list)
                         databaseViewModel.deleteChallenge(challenge)
                     },
                         colors = ButtonDefaults.buttonColors(

@@ -67,7 +67,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel) {
                 backgroundColor = Mango,
                 contentColor = Color.White
             )) {
-            Text("Login")
+            Text("Login", color = Color.White)
         }
         Button(onClick = {
             navController.navigate("signup")
@@ -121,7 +121,7 @@ fun SignUpScreen(navController: NavController, authViewModel: AuthViewModel) {
                 backgroundColor = Mango,
                 contentColor = Color.White
             )) {
-            Text("Sign Up")
+            Text("Sign Up", color = Color.White)
         }
         Text(text, color = MaterialTheme.colorScheme.error)
         LaunchedEffect(authViewModel.authRegStatus) {
@@ -158,7 +158,7 @@ fun PreferencesScreen(authViewModel: AuthViewModel) {
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Mango
             )) {
-            Text(text = "Let's go!")
+            Text(text = "Let's go!", color = Color.White)
         }
     }
 }

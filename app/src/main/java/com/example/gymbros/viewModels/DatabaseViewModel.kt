@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.gymbros.Challenge
 import com.example.gymbros.User
 import com.example.gymbros.Workout
 import com.google.firebase.Firebase
@@ -28,7 +29,7 @@ class DatabaseViewModel : ViewModel() {
     private var workoutsId = mutableListOf<String>()
 
     var challenges = mutableListOf<String>()
-    val fetchedChallenge = mutableStateOf("You have no challenges.")
+    val fetchedChallenge = mutableStateOf(Challenge("", "You have no challenges."))
 
     val friendRequests = mutableListOf<User>()
     val listOfFriends = mutableListOf<User>()
@@ -121,7 +122,7 @@ class DatabaseViewModel : ViewModel() {
             }
         }
         if (fetchedUser.value.id == "") fetchNextUser()
-        if (fetchedChallenge.value == "You have no challenges.") fetchNextChallenge()
+        if (fetchedChallenge.value.text == "You have no challenges.") fetchNextChallenge()
     }
 
 
@@ -323,17 +324,17 @@ class DatabaseViewModel : ViewModel() {
     }
 
 
-    fun deleteChallenge(challenge: String) {
+    fun deleteChallenge(challenge: Challenge) {
         val userId = auth.currentUser?.uid ?: ""
         val userRef = db.collection("users").document(userId)
         userRef.get().addOnSuccessListener { document ->
             if (document != null) {
                 val tmpchallenges = document.get("challenges") as MutableList<String>
-                tmpchallenges.remove(challenge)
+                tmpchallenges.remove(challenge.id)
                 userRef.update("challenges", tmpchallenges)
             }
         }
-        challenges.remove(challenge)
+        challenges.remove(challenge.text)
     }
 
     fun fetchNextChallenge() {
@@ -347,7 +348,7 @@ class DatabaseViewModel : ViewModel() {
             query.get().addOnSuccessListener { documentSnapshots ->
                 if (documentSnapshots.isEmpty) {
                     println("You have no challenges.")
-                    fetchedChallenge.value = "You have no challenges."
+                    fetchedChallenge.value = Challenge("","You have no challenges.")
                 } else {
                     val challenge = documentSnapshots.documents[0]
                     val text = challenge.getString("text")
@@ -355,7 +356,8 @@ class DatabaseViewModel : ViewModel() {
                     if (challenges.contains(id)) {
                         println("mam challenge")
                         if (text != null) {
-                            fetchedChallenge.value = text
+                            fetchedChallenge.value.id = id
+                            fetchedChallenge.value.text = text
                         }
                     } else {
                         fetchNextChallenge()

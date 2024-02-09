@@ -34,7 +34,7 @@ import com.example.gymbros.viewModels.DatabaseViewModel
 
 @Composable
 fun HomePage(navController: NavController, databaseViewModel: DatabaseViewModel) {
-    databaseViewModel.fetchDataFromFirebase()//to bylo po getuserdata
+    databaseViewModel.fetchDataFromFirebase()
     databaseViewModel.getUserData() //wtedy dziala
     val challenge = databaseViewModel.fetchedChallenge.value
     GymBrosTheme {
