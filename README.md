@@ -1,4 +1,4 @@
-***GymBros***
+# GymBros
 
 GymBros is a mobile application written in Kotlin using Jetpack Compose and Firebase. 
 It allows users to add workouts, find gym buddies with similar preferences, and send each other fitness challenges.
